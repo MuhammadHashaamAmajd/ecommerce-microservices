@@ -4,20 +4,27 @@ import com.ibatulanand.productservice.dto.ProductRequest;
 import com.ibatulanand.productservice.dto.ProductResponse;
 import com.ibatulanand.productservice.model.Product;
 import com.ibatulanand.productservice.repository.ProductRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
-@Slf4j
 public class ProductService {
+
+    // 1. Manual Logger (Replaces @Slf4j)
+    private static final Logger log = LoggerFactory.getLogger(ProductService.class);
 
     private final ProductRepository productRepository;
 
+    // 2. Manual Constructor (Replaces @RequiredArgsConstructor)
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
     public void createProduct(ProductRequest productRequest) {
+        // This works because we added the manual Builder to Product.java
         Product product = Product.builder()
                 .name(productRequest.getName())
                 .description(productRequest.getDescription())
@@ -34,6 +41,7 @@ public class ProductService {
     }
 
     private ProductResponse mapToProductResponse(Product product) {
+        // This works because we added the manual Builder to ProductResponse.java
         return ProductResponse.builder()
                 .id(product.getId())
                 .name(product.getName())
