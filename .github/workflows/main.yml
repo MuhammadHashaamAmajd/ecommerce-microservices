@@ -2,9 +2,9 @@ name: E-Commerce Microservices CI/CD
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]  # Changed from main to master
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]  # Changed from main to master
 
 jobs:
   # JOB 1: Run Automation/Integration Tests from the separate folder
@@ -22,8 +22,7 @@ jobs:
           cache: 'maven'
 
       - name: Run External Test Suite
-        # Replace 'integration-tests' with the actual name of your test folder
-        # -f tells Maven to use the pom.xml inside that specific directory
+        # This matches the folder you created
         run: mvn test -f integration-tests/pom.xml
 
   # JOB 2: Build and Push (Only runs if run-tests succeeds)
